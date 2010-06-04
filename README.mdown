@@ -1,1 +1,10 @@
+# fwiki: Retarded simple
+
 The fwiki is a one-file Ruby wiki powered by Sinatra, Datamapper, pwnsauce, and RDiscount. I'm going to use it as my GTD wiki.
+
+## Numbers followed by nouns
+
+- 211 lines of code
+- 42% test coverage (I made this up; I have no idea)
+- 1/2 assed
+- 100% reliable 99% of the time
