@@ -8,3 +8,52 @@ The fwiki is a one-file Ruby wiki powered by Sinatra, Datamapper, pwnsauce, and 
 - 42% test coverage (I made this up; I have no idea)
 - 1/2 assed
 - 100% reliable 99% of the time
+
+## How to install it
+
+1. Download `fwiki.rb`
+2. Edit the configuration section inside `fwiki.rb`
+2. `ruby fwiki.rb`
+
+## Requirements
+
+- sinatra
+- haml
+- datamapper
+- rdiscount
+
+## How to start using it
+
+Go to `http://localhost:4567/` to see all the pages you have in your fwiki. Since you don't have any pages yet, there will be nothing there.
+
+### Create your **home** page
+
+Click the **home** link at the top of the page. You will get a 404 page with a form that will let you create it.
+
+### Creating new pages
+
+There are two ways to create a new page:
+
+1. Use your browser to go to a page that doesn't exist, like `http://localhost:4567/asdfasdf`
+2. Type a fwikilink in a page that does exist, and click on it (like [[asdfasdf]])
+
+(Okay, #2 is actually just a different way to do #1.)
+
+## Markdown, Textile, etc.
+
+If you want to use something other than Markdown, just change this method in `fwiki.rb`:
+
+    # render page contents as html
+    #
+    # for something besides markdown, process as you like
+    def htmlify(text)
+      RDiscount.new(text).to_html
+    end
+
+Change it to something like this:
+
+    def htmlify(text)
+      RedCloth.new(text).to_html
+    end
+
+Also, change `require 'rdiscount'` to `require 'redcloth'` at the top of `fwiki.rb`.
