@@ -187,7 +187,8 @@ $layout_width: 60em
   border-top-radius: $radius
   -moz-border-radius-topleft: $radius
   -moz-border-radius-topright: $radius
-  -webkit-border-top-radius: $radius
+  -webkit-border-top-left-radius: $radius
+  -webkit-border-top-right-radius: $radius
 
 @mixin nopadding
   margin: 0
