@@ -57,3 +57,7 @@ Change it to something like this:
     end
 
 Also, change `require 'rdiscount'` to `require 'redcloth'` at the top of `fwiki.rb`.
+
+## Importing Instiki wikis into fwiki
+
+First, download `import_instiki.rb` from this repository. Then, export your Instiki wiki as a zip file (using a link in Instiki), unzip it, and point `import_instiki.rb` at the unzipped directory. Full instructions are in the comments at the top of the script.
