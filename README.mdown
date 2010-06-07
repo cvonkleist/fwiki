@@ -2,6 +2,8 @@
 
 The fwiki is a one-file Ruby wiki powered by Sinatra, Datamapper, pwnsauce, and RDiscount. I'm going to use it as my GTD wiki.
 
+![fwiki logo](http://cvk.qubes.org/fwiki_logo_small.png)
+
 ## Numbers followed by nouns
 
 - 211 lines of code
