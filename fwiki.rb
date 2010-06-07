@@ -224,6 +224,9 @@ a
   width: #{$layout_width - $side_padding * 2}
   background-color: white
   min-height: 80%
+  background-image: url(http://cvk.qubes.org/fwiki_logo_small.png)
+  background-repeat: no-repeat
+  background-position: bottom right
 #menu ul
   @include nopadding
   padding: 0.5em
