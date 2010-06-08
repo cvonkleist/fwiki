@@ -145,7 +145,7 @@ __END__
 @@ index
 - call_me 'oh hai there'
 %h2 you can haz pages
-%ul
+%ul#pages
   - @pages.each do |page|
     %li
       %a{:href => '/' + h(e(page.name))}=h page.name
