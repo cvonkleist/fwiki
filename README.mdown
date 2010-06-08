@@ -15,7 +15,7 @@ The fwiki is a one-file Ruby wiki powered by Sinatra, Datamapper, pwnsauce, and 
 
 1. Download `fwiki.rb`
 2. Edit the configuration section inside `fwiki.rb`
-2. `ruby fwiki.rb`
+3. `ruby fwiki.rb`
 
 ## Requirements
 
