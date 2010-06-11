@@ -14,6 +14,10 @@
 # 2. run this script on the directory created in 1c like this:
 #
 #   ruby import_instiki.rb my_instiki_dir/
+#
+# BEFORE RUNNING
+#
+# start fwiki at least once before running this so the database is initialized
 
 require 'fwiki'
 require 'cgi'
