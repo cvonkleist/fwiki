@@ -2,6 +2,7 @@ require 'sinatra'
 require 'haml'
 require 'sass'
 require 'dm-core'
+require 'dm-migrations'
 require 'rdiscount'
 
 
