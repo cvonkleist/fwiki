@@ -21,7 +21,7 @@ The fwiki is a one-file Ruby wiki powered by Sinatra, Datamapper, pwnsauce, and 
 
 - sinatra
 - haml
-- datamapper
+- datamapper (and dm-migrations)
 - rdiscount
 
 ## How to start using it
