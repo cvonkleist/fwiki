@@ -82,8 +82,11 @@ end
 
 ## web app methods
 
+# with param ?long=xxx byte size of each page is displayed (used for the fuse
+# module)
 get '/' do
   @pages = Page.all
+  @long = params[:long]
   haml :index
 end
 
@@ -150,6 +153,8 @@ __END__
   - @pages.each do |page|
     %li
       %a{:href => '/' + h(e(page.name))}=h page.name
+      - if @long
+        = '(' + page.contents.length.to_s + ' bytes)'
 
 @@ show
 - call_me h(@page.name)
