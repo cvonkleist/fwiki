@@ -97,14 +97,18 @@ end
 
 get '/:name' do
   @page = Page.get(params[:name])
-  raise NoPage, 'not here' unless @page
-  if params[:raw]
-    content_type 'text/plain'
-    @page.contents
-  elsif params[:edit]
-    haml :show_edit
+  if @page
+    if params[:raw]
+      content_type 'text/plain'
+      @page.contents
+    elsif params[:edit]
+      haml :show_edit
+    else
+      haml :show
+    end
   else
-    haml :show
+    @name = params[:name]
+    not_found(haml :new_page, :@name => params[:name])
   end
 end
 
@@ -114,15 +118,6 @@ put '/:name' do
   @page.contents = params[:contents] || ''
   @page.save
   haml :show
-end
-
-
-## exceptions
-
-class NoPage < Sinatra::NotFound; end
-error NoPage do
-  @name = params[:name]
-  haml :new_page
 end
 
 
