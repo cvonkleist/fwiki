@@ -94,18 +94,20 @@ get '/' do
   haml :index
 end
 
-get '/search/?:term?' do
-  @term = params[:term]
-  @regexp = Regexp.new('.{0,20}' + @term + '.{0,20}') # also return some context
-  @pages = Page.all.inject({}) do |pages, page|
-    matches = page.scan(@regexp)
-    if matches.length > 0 || page.name.match(@regexp)
-      pages[page] = matches; pages
-    else
-      pages
+['/search', '/search/:term'].each do |route|
+  get route do
+    @term = params[:term]
+    @regexp = Regexp.new('.{0,20}' + @term + '.{0,20}') # also return some context
+    @pages = Page.all.inject({}) do |pages, page|
+      matches = page.scan(@regexp)
+      if matches.length > 0 || page.name.match(@regexp)
+        pages[page] = matches; pages
+      else
+        pages
+      end
     end
+    haml :search
   end
-  haml :search
 end
 
 get '/fwiki/style' do

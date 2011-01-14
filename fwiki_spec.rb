@@ -100,7 +100,7 @@ describe 'fwiki searching' do
     page1 = mock_page_result('foo page', ['foo is foo', 'foo foo foo'])
     page2 = mock_page_result('bar page', [])
     Page.stub!(:all).and_return [page1, page2]
-    authorized_get '/search/foo'
+    authorized_get '/search?term=foo'
     last_response.should be_ok
     last_response.body.should include('foo page')
     last_response.body.should include('foo is foo')
