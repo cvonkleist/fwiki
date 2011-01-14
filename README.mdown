@@ -70,7 +70,7 @@ or
 
     /search?term=foo
 
-Full Ruby regular expressions are supported, which might be a slight DOS vulnerability, but makes it possible to do stuff like this:
+Full Ruby regular expressions are supported. This provides fwiki an awesome denial-of-service vulnerability (HIGH FIVE!), and it even makes it possible to do stuff like:
 
     /search?term=\bfoo\b
 
