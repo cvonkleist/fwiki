@@ -12,6 +12,11 @@ describe Page do
     p = Page.new(:name => 'foo', :contents => 'bar')
     p.contents.should == 'bar'
   end
+
+  it 'should search the body and title' do
+    p = Page.new(:name => 'foo page', :contents => 'now is the time for all good foo to come to the aid of their bar')
+    p.scan(%r(the)).length.should == 3
+  end
 end
 
 def authorized_get(path)
@@ -74,5 +79,40 @@ describe "fwiki" do
     last_response.status.should == 404
     last_response.body.should include('you can create')
     last_response.body.should include('foo&lt;bar')
+  end
+end
+
+describe 'fwiki searching' do
+  include Rack::Test::Methods
+
+  def app
+    @app ||= Sinatra::Application
+  end
+
+  def mock_page_result(name, search_result)
+    p = mock('page')
+    p.stub!(:name).and_return name
+    p.stub!(:scan).and_return search_result
+    p
+  end
+
+  it 'should search pages' do
+    page1 = mock_page_result('foo page', ['foo is foo', 'foo foo foo'])
+    page2 = mock_page_result('bar page', [])
+    Page.stub!(:all).and_return [page1, page2]
+    authorized_get '/search/foo'
+    last_response.should be_ok
+    last_response.body.should include('foo page')
+    last_response.body.should include('foo is foo')
+    last_response.body.should include('foo foo foo')
+    last_response.body.should_not include('bar page')
+  end
+
+  it 'should say when there are no results' do
+    page = mock_page_result('bar page', [])
+    Page.stub!(:all).and_return [page]
+    authorized_get '/search/baz'
+    last_response.should be_ok
+    last_response.body.should include('no baz :(')
   end
 end

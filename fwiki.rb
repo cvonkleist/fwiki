@@ -37,6 +37,10 @@ class Page
   def contents=(text)
     bodies << Body.new(:contents => text)
   end
+  # returns an array of matches to +regexp+
+  def scan(regexp)
+    contents.scan(regexp)
+  end
 end
 
 class Body
@@ -90,6 +94,20 @@ get '/' do
   haml :index
 end
 
+get %r(search(/(.*))?) do |discard, @term|
+  @term ||= params[:term]
+  @regexp = Regexp.new('.{0,20}' + @term + '.{0,20}') # also return some context
+  @pages = Page.all.inject({}) do |pages, page|
+    matches = page.scan(@regexp)
+    if matches.length > 0 || page.name.match(@regexp)
+      pages[page] = matches; pages
+    else
+      pages
+    end
+  end
+  haml :search
+end
+
 get '/fwiki/style' do
   content_type 'text/css'
   sass :style
@@ -137,6 +155,9 @@ __END__
         %a{:href => '/' + h(e(HOME_PAGE_NAME))}= h(HOME_PAGE_NAME)
       %li
         %a{:href => '/'} all pages
+      %li#search
+        %form{:action => '/search'}
+          %input{:name => 'term'}
   %div#page
     %h1= page_title
     = page_contents
@@ -150,6 +171,22 @@ __END__
       %a{:href => '/' + h(e(page.name))}=h page.name
       - if @long
         = '(' + page.contents.length.to_s + ' bytes)'
+
+@@ search
+- call_me 'search for ' + h(@term)
+%h2
+  = "lookin' fo' %s" % h(@term)
+- if @pages.empty?
+  = "no %s :(" % h(@term)
+- else
+  %ul#results
+    - @pages.each do |page, matches|
+      %li
+        %a{:href => '/' + h(e(page.name))}=h page.name
+        - unless matches.empty?
+          %ul.matches
+            - matches.each do |match|
+              %li= h(match.to_s)
 
 @@ show
 - call_me h(@page.name)
@@ -240,6 +277,10 @@ a
       font:
         size: small
         weight: bold
+  li#search
+    float: right
+    input
+      border: 1px solid #ccc
 h1
   @include nopadding
   color: $red
