@@ -6,7 +6,7 @@ The fwiki is a one-file Ruby wiki powered by Sinatra, Datamapper, pwnsauce, and 
 
 ## Numbers followed by nouns
 
-- 211 lines of code
+- 218 lines of code
 - 42% test coverage (I made this up; I have no idea)
 - 1/2 assed
 - 100% reliable 99% of the time
@@ -59,6 +59,22 @@ Change it to something like this:
     end
 
 Also, change `require 'rdiscount'` to `require 'redcloth'` at the top of `fwiki.rb`.
+
+## Searching
+
+You can search your fwiki by using either of these two paths:
+
+    /search/foo
+
+or
+
+    /search?term=foo
+
+Full Ruby regular expressions are supported, which might be a slight DOS vulnerability, but makes it possible to do stuff like this:
+
+    /search?term=\bfoo\b
+
+...which will find "foo" without matching "food" or "buffoon".
 
 ## Importing Instiki wikis into fwiki
 
