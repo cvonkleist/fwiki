@@ -94,8 +94,8 @@ get '/' do
   haml :index
 end
 
-get %r(search(/(.*))?) do |discard, @term|
-  @term ||= params[:term]
+get '/search/?:term?' do
+  @term = params[:term]
   @regexp = Regexp.new('.{0,20}' + @term + '.{0,20}') # also return some context
   @pages = Page.all.inject({}) do |pages, page|
     matches = page.scan(@regexp)
